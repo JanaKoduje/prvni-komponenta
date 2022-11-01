@@ -24,16 +24,16 @@ export const ShoppingList = (props) => {
           ShoppingList({
             day: day,
             dayName: dayName,
-            items: data.results,            
+            items: data.results,
           })
         );
       });
   } else {
     const ulElement = element.querySelector("ul");
-    ulElement.append(...items.map((item) => ShoppingItem({...item, day})));
+    ulElement.append(...items.map((item) => ShoppingItem({ ...item, day })));
   }
 
-  element.querySelector("form").addEventListener("submit", () => {
+  element.querySelector("form").addEventListener("submit", (event) => {
     event.preventDefault();
     fetch(`https://apps.kodim.cz/daweb/shoplist/api/weeks/31/days/${day}`, {
       method: "POST",
@@ -49,12 +49,15 @@ export const ShoppingList = (props) => {
     })
       .then((response) => response.json())
       .then((data) =>
-        element
-          .querySelector("ul")
-          .replaceWith(...data.results.map((item) => ShoppingItem({...item, day})))
+        element.replaceWith(
+          ShoppingList({
+            day: day,
+            dayName: dayName,
+            items: data.results,
+          })
+        )
       );
   });
 
   return element;
 };
-
