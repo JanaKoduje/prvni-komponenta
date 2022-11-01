@@ -41,9 +41,9 @@ export const ShoppingList = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        product: document.querySelector(".produkt").value,
-        amount: document.querySelector(".mnozstvi").value,
-        unit: document.querySelector(".jednotka").value,
+        product: element.querySelector(".produkt").value,
+        amount: element.querySelector(".mnozstvi").value,
+        unit: element.querySelector(".jednotka").value,
         done: false,
       }),
     })
