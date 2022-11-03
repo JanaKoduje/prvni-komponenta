@@ -1,9 +1,9 @@
 import { ShoppingItem } from "../ShoppingItem/index.js";
+import { dayPrefix } from "../constants.js";
 
 export const ShoppingList = (props) => {
   const { day, dayName, items } = props;
-  const dayPrefix = "day-";
-
+ 
   const element = document.createElement("div");
   element.setAttribute("id", dayPrefix + day);
   element.classList.add("shopping-list");

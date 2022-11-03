@@ -30,3 +30,14 @@
 .item__btn-done--check {
   background-image: url(./img/check.svg);
 }
+
+.item__btn-delete {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  background-image: url(./img/empty-trash.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}

@@ -1,9 +1,8 @@
 import { ShoppingList } from "../ShoppingList/index.js";
-import { week } from "../week.js";
+import { week, dayPrefix } from "../constants.js";
 
 export const AddItemForm = () => {
   const element = document.createElement("form");
-  const dayPrefix = "day-";
 
   element.innerHTML = `
     <input type="text" id="produkt" placeholder="Produkt">
