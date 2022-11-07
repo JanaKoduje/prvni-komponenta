@@ -35,7 +35,7 @@ export const AddItemForm = () => {
         },
         body: JSON.stringify({
           product: element.querySelector("#produkt").value,
-          amount: element.querySelector("#mnozstvi").value,
+          amount: Number(element.querySelector("#mnozstvi").value),
           unit: element.querySelector("#jednotka").value,
           done: false,
         }),
