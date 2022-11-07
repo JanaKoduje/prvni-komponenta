@@ -19,8 +19,11 @@ export const AddItemForm = () => {
 
   element.addEventListener("submit", (event) => {
     event.preventDefault();
+    if ( element.den.value === "nic") {
+      alert ('Není vybrán den!')
+    }
+    
     const dayObj = week.find((item) => item.day === element.den.value);
-
     const dayListElm = document.querySelector(`#${dayPrefix + dayObj.day}`);
 
     fetch(
