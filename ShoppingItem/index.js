@@ -2,7 +2,7 @@ import { ShoppingList } from "../ShoppingList/index.js";
 import { week, dayPrefix } from "../constants.js";
 
 export const ShoppingItem = (props) => {
-  const { id, product, amount, unit, done, day } = props;
+  const { id, product, amount, unit, done, day, onDelete } = props;
 
   let checkClass = "";
   if (done) {
@@ -52,27 +52,7 @@ export const ShoppingItem = (props) => {
   });
 
   element.querySelector("#trash").addEventListener("click", () => {
-    const dayObj = week.find((item) => item.day === day);
-    const dayListElm = document.querySelector(`#${dayPrefix + dayObj.day}`);
-    fetch(
-      `https://apps.kodim.cz/daweb/shoplist/api/weeks/31/days/${day}/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) =>
-        dayListElm.replaceWith(
-          ShoppingList({
-            day: dayObj.day,
-            dayName: dayObj.dayName,
-            items: data.results,
-          })
-        )
-      );
+    onDelete(id);
   });
 
   return element;
