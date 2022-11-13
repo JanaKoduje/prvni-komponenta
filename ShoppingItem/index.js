@@ -1,8 +1,6 @@
-import { ShoppingList } from "../ShoppingList/index.js";
-import { week, dayPrefix } from "../constants.js";
-
 export const ShoppingItem = (props) => {
-  const { id, product, amount, unit, done, day, onDelete } = props;
+  const { item, day, onDelete, onMoveDown, onMoveUp } = props;
+  const { id, product, amount, unit, done } = item;
 
   let checkClass = "";
   if (done) {
@@ -15,6 +13,8 @@ export const ShoppingItem = (props) => {
     <div class="item__name">${product}</div>
     <div class="item__amount"><input id="amount" type="number" value="${amount}"> ${unit}</div>
     <button id="checked" class="item__btn-done ${checkClass}"></button>
+    <button id="moveDown" class="item__btn-down"></button>
+    <button id="moveUp" class="item__btn-up"></button>
     <button id="trash" class="item__btn-delete"></button>
   `;
 
@@ -30,7 +30,7 @@ export const ShoppingItem = (props) => {
     )
       .then((response) => response.json())
       .then((data) =>
-        element.replaceWith(ShoppingItem({ ...data.results, day }))
+        element.replaceWith(ShoppingItem({ ...props, item: data.results }))
       );
   });
 
@@ -47,13 +47,21 @@ export const ShoppingItem = (props) => {
     )
       .then((response) => response.json())
       .then((data) =>
-        element.replaceWith(ShoppingItem({ ...data.results, day }))
+        element.replaceWith(ShoppingItem({ ...props, item: data.results }))
       );
   });
 
   element.querySelector("#trash").addEventListener("click", () => {
     onDelete(id);
   });
+
+  element
+    .querySelector("#moveDown")
+    .addEventListener("click", () => onMoveDown(id));
+
+  element
+    .querySelector("#moveUp")
+    .addEventListener("click", () => onMoveUp(id));
 
   return element;
 };

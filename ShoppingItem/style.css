@@ -41,3 +41,25 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
+
+.item__btn-down {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  background-image: url(./img/arrow-down.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.item__btn-up {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  background-image: url(./img/arrow-up.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
