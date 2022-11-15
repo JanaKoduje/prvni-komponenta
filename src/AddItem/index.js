@@ -1,5 +1,5 @@
-import { ShoppingList } from "../ShoppingList/index.js";
-import { week, dayPrefix } from "../constants.js";
+import { ShoppingList } from "./../ShoppingList/index.js";
+import { week, dayPrefix } from "./../constants.js";
 
 export const AddItemForm = () => {
   const element = document.createElement("form");
@@ -27,7 +27,7 @@ export const AddItemForm = () => {
     const dayListElm = document.querySelector(`#${dayPrefix + dayObj.day}`);
 
     fetch(
-      `https://apps.kodim.cz/daweb/shoplist/api/weeks/31/days/${dayObj.day}`,
+      `https://apps.kodim.cz/daweb/shoplist/api/weeks/0/${dayObj.day}`,
       {
         method: "POST",
         headers: {
@@ -53,5 +53,6 @@ export const AddItemForm = () => {
       );
   });
 
+  
   return element;
 };

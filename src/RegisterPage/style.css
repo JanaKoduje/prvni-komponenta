@@ -1,0 +1,20 @@
+header {
+  background-color: blanchedalmond;
+  padding: 1rem;
+  text-align: center;
+}
+
+header > .container {
+  display: flex;
+  justify-content: space-between;
+}
+
+nav > a {
+  color: black;
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+
+nav > a:hover {
+  text-decoration: underline;
+}

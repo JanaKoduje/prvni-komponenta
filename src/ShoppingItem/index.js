@@ -1,3 +1,5 @@
+import './style.css';
+
 export const ShoppingItem = (props) => {
   const { item, day, onDelete, onMoveDown, onMoveUp } = props;
   const { id, product, amount, unit, done } = item;
@@ -20,14 +22,11 @@ export const ShoppingItem = (props) => {
 
   const amountElm = element.querySelector("#amount");
   amountElm.addEventListener("change", () => {
-    fetch(
-      `https://apps.kodim.cz/daweb/shoplist/api/weeks/31/days/${day}/${id}`,
-      {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: Number(amountElm.value) }),
-      }
-    )
+    fetch(`https://apps.kodim.cz/daweb/shoplist/api/weeks/0/${day}/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount: Number(amountElm.value) }),
+    })
       .then((response) => response.json())
       .then((data) =>
         element.replaceWith(ShoppingItem({ ...props, item: data.results }))
@@ -35,16 +34,13 @@ export const ShoppingItem = (props) => {
   });
 
   element.querySelector("#checked").addEventListener("click", () => {
-    fetch(
-      `https://apps.kodim.cz/daweb/shoplist/api/weeks/31/days/${day}/${id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ done: !done }),
-      }
-    )
+    fetch(`https://apps.kodim.cz/daweb/shoplist/api/weeks/0/${day}/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ done: !done }),
+    })
       .then((response) => response.json())
       .then((data) =>
         element.replaceWith(ShoppingItem({ ...props, item: data.results }))

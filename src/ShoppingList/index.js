@@ -1,5 +1,5 @@
-import { ShoppingItem } from "../ShoppingItem/index.js";
-import { dayPrefix } from "../constants.js";
+import { ShoppingItem } from "./../ShoppingItem/index.js";
+import { dayPrefix } from "./../constants.js";
 
 export const ShoppingList = (props) => {
   const { day, dayName, items } = props;
@@ -19,14 +19,14 @@ export const ShoppingList = (props) => {
       ShoppingList({
         day: day,
         dayName: dayName,
-        items: data.results,
+        items: data.results.items,
       })
-    )
-  }
+    );
+  };
 
   const handleDeleteItem = (id) => {
     fetch(
-      `https://apps.kodim.cz/daweb/shoplist/api/weeks/31/days/${day}/${id}`,
+      `https://apps.kodim.cz/daweb/shoplist/api/weeks/0/days/${day}/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -40,7 +40,7 @@ export const ShoppingList = (props) => {
 
   const handleMoveDown = (id) => {
     fetch(
-      `https://apps.kodim.cz/daweb/shoplist/api/weeks/31/days/${day}/${id}/actions`,
+      `https://apps.kodim.cz/daweb/shoplist/api/weeks/0/${day}/${id}/actions`,
       {
         method: "POST",
         headers: {
@@ -55,7 +55,7 @@ export const ShoppingList = (props) => {
 
   const handleMoveUp = (id) => {
     fetch(
-      `https://apps.kodim.cz/daweb/shoplist/api/weeks/31/days/${day}/${id}/actions`,
+      `https://apps.kodim.cz/daweb/shoplist/api/weeks/0/${day}/${id}/actions`,
       {
         method: "POST",
         headers: {
@@ -69,37 +69,31 @@ export const ShoppingList = (props) => {
   };
 
   element.querySelector("#reset").addEventListener("click", () => {
-    fetch(
-      `https://apps.kodim.cz/daweb/shoplist/api/weeks/31/days/${day}/actions`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ type: "reset" }),
-      }
-    )
+    fetch(`https://apps.kodim.cz/daweb/shoplist/api/weeks/0/${day}/actions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ type: "reset" }),
+    })
       .then((response) => response.json())
       .then(replaceList);
   });
 
   element.querySelector("#clear").addEventListener("click", () => {
-    fetch(
-      `https://apps.kodim.cz/daweb/shoplist/api/weeks/31/days/${day}/actions`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ type: "clear" }),
-      }
-    )
+    fetch(`https://apps.kodim.cz/daweb/shoplist/api/weeks/0/${day}/actions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ type: "clear" }),
+    })
       .then((response) => response.json())
       .then(replaceList);
   });
 
   if (items === undefined) {
-    fetch(`https://apps.kodim.cz/daweb/shoplist/api/weeks/31/days/${day}`)
+    fetch(`https://apps.kodim.cz/daweb/shoplist/api/weeks/0/${day}`)
       .then((response) => response.json())
       .then(replaceList);
   } else {

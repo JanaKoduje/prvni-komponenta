@@ -1,0 +1,50 @@
+html {
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+.container {
+  max-width: 30rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+/* Forms */
+
+form {
+  border: 1px solid lightgray;
+  padding: 2rem;
+}
+
+.form-field {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.form-field input {
+  display: block;
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+}
+
+button[type="submit"] {
+  border: none;
+  padding: 1rem;
+  background-color: deepskyblue;
+  font-size: 1rem;
+}
+
+.alert {
+  background-color: pink;
+  border: 1px solid red;
+  padding: 2rem;
+}
