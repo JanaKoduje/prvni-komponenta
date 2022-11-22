@@ -3,9 +3,8 @@ import { AddItemForm } from "./../AddItem/index.js";
 
 import "./style.css";
 
-export const HomePage = ( props ) => {
+export const HomePage = (props) => {
   const { session } = props;
-  console.log("session v HP: ", session)
 
   if (session === "no-session") {
     window.location.href = "/login";
