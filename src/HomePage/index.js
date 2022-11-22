@@ -1,9 +1,17 @@
 import { ShoppingList } from "./../ShoppingList/index.js";
 import { AddItemForm } from "./../AddItem/index.js";
 
-import './style.css';
+import "./style.css";
 
-export const HomePage = () => {
+export const HomePage = ( props ) => {
+  const { session } = props;
+  console.log("session v HP: ", session)
+
+  if (session === "no-session") {
+    window.location.href = "/login";
+    return null;
+  }
+
   const element = document.createElement("div");
   element.classList.add("page");
   element.innerHTML = `
@@ -14,6 +22,10 @@ export const HomePage = () => {
     </div>
     `;
 
+  if (session === undefined) {
+    return element;
+  }
+
   element.querySelector("#add").append(AddItemForm());
 
   element
@@ -23,5 +35,5 @@ export const HomePage = () => {
       ShoppingList({ day: "tue", dayName: "Úterý" })
     );
 
-    return element;
+  return element;
 };

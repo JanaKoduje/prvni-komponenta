@@ -30,6 +30,7 @@ export const RegisterPage = (props) => {
     const email = element.querySelector(".email-input").value;
     const password = element.querySelector(".email-input").value;
 
+
     fetch("https://apps.kodim.cz/daweb/shoplist/api/register", {
       method: "POST",
       headers: {

@@ -26,11 +26,11 @@ export const ShoppingList = (props) => {
 
   const handleDeleteItem = (id) => {
     fetch(
-      `https://apps.kodim.cz/daweb/shoplist/api/weeks/0/days/${day}/${id}`,
+      `https://apps.kodim.cz/daweb/shoplist/api/me/week/${day}/items/${id}`,
       {
         method: "DELETE",
         headers: {
-          "Content-Type": "application/json",
+          Authorization: `Bearer ${window.localStorage.getItem("authToken")}`,
         },
       }
     )
@@ -40,11 +40,12 @@ export const ShoppingList = (props) => {
 
   const handleMoveDown = (id) => {
     fetch(
-      `https://apps.kodim.cz/daweb/shoplist/api/weeks/0/${day}/${id}/actions`,
+      `https://apps.kodim.cz/daweb/shoplist/api/me/week/${day}/items/${id}/actions`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${window.localStorage.getItem("authToken")}`,
         },
         body: JSON.stringify({ type: "moveDown" }),
       }
@@ -55,11 +56,12 @@ export const ShoppingList = (props) => {
 
   const handleMoveUp = (id) => {
     fetch(
-      `https://apps.kodim.cz/daweb/shoplist/api/weeks/0/${day}/${id}/actions`,
+      `https://apps.kodim.cz/daweb/shoplist/api/me/week/${day}/items/${id}/actions`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${window.localStorage.getItem("authToken")}`,
         },
         body: JSON.stringify({ type: "moveUp" }),
       }
@@ -69,10 +71,11 @@ export const ShoppingList = (props) => {
   };
 
   element.querySelector("#reset").addEventListener("click", () => {
-    fetch(`https://apps.kodim.cz/daweb/shoplist/api/weeks/0/${day}/actions`, {
+    fetch(`https://apps.kodim.cz/daweb/shoplist/api/me/week/${day}/actions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${window.localStorage.getItem("authToken")}`,
       },
       body: JSON.stringify({ type: "reset" }),
     })
@@ -81,10 +84,11 @@ export const ShoppingList = (props) => {
   });
 
   element.querySelector("#clear").addEventListener("click", () => {
-    fetch(`https://apps.kodim.cz/daweb/shoplist/api/weeks/0/${day}/actions`, {
+    fetch(`https://apps.kodim.cz/daweb/shoplist/api/me/week/${day}/actions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${window.localStorage.getItem("authToken")}`,
       },
       body: JSON.stringify({ type: "clear" }),
     })
@@ -93,7 +97,12 @@ export const ShoppingList = (props) => {
   });
 
   if (items === undefined) {
-    fetch(`https://apps.kodim.cz/daweb/shoplist/api/weeks/0/${day}`)
+    fetch(`https://apps.kodim.cz/daweb/shoplist/api/me/week/${day}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem("authToken")}`,
+      },
+    })
       .then((response) => response.json())
       .then(replaceList);
   } else {
