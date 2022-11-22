@@ -19,40 +19,37 @@ export const AddItemForm = () => {
 
   element.addEventListener("submit", (event) => {
     event.preventDefault();
-    if ( element.den.value === "nic") {
-      alert ('Není vybrán den!')
+    if (element.den.value === "nic") {
+      alert("Není vybrán den!");
     }
-    
-    const dayObj = week.find((item) => item.day === element.den.value);
+
+    const dayObj = week.find((info) => info.day === element.den.value);
     const dayListElm = document.querySelector(`#${dayPrefix + dayObj.day}`);
 
-    fetch(
-      `https://apps.kodim.cz/daweb/shoplist/api/weeks/0/${dayObj.day}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          product: element.querySelector("#produkt").value,
-          amount: Number(element.querySelector("#mnozstvi").value),
-          unit: element.querySelector("#jednotka").value,
-          done: false,
-        }),
-      }
-    )
+    fetch(`https://apps.kodim.cz/daweb/shoplist/api/me/week/${dayObj.day}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${window.localStorage.getItem("authToken")}`,
+      },
+      body: JSON.stringify({
+        product: element.querySelector("#produkt").value,
+        amount: Number(element.querySelector("#mnozstvi").value),
+        unit: element.querySelector("#jednotka").value,
+        done: false,
+      }),
+    })
       .then((response) => response.json())
       .then((data) =>
         dayListElm.replaceWith(
           ShoppingList({
             day: dayObj.day,
             dayName: dayObj.dayName,
-            items: data.results,
+            items: data.results.items,
           })
         )
       );
   });
 
-  
   return element;
 };
