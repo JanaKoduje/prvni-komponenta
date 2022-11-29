@@ -26,7 +26,9 @@ export const AddItemForm = () => {
     const dayObj = week.find((info) => info.day === element.den.value);
     const dayListElm = document.querySelector(`#${dayPrefix + dayObj.day}`);
 
-    fetch(`https://apps.kodim.cz/daweb/shoplist/api/me/week/${dayObj.day}`, {
+    console.log(window.localStorage.getItem("authToken"))
+
+    fetch(`https://apps.kodim.cz/daweb/shoplist/api/me/week/${dayObj.day}/items`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,7 +42,8 @@ export const AddItemForm = () => {
       }),
     })
       .then((response) => response.json())
-      .then((data) =>
+      .then((data) => 
+        
         dayListElm.replaceWith(
           ShoppingList({
             day: dayObj.day,
@@ -48,6 +51,7 @@ export const AddItemForm = () => {
             items: data.results.items,
           })
         )
+      
       );
   });
 
